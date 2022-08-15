@@ -5,7 +5,7 @@ class NatsService {
 
   get client() {
     if (!this._client)
-      throw new Error('[AS] Cannot access NATS client before connecting');
+      throw new Error('[BS] Cannot access NATS client before connecting');
     return this._client;
   }
 
@@ -14,7 +14,7 @@ class NatsService {
 
     return new Promise<void>((resolve, reject) => {
       this.client!.on('connect', () => {
-        console.log('[AS] Connected to NATS service.');
+        console.log('[BS] Connected to NATS service.');
         resolve();
       });
 
@@ -24,9 +24,9 @@ class NatsService {
     });
   }
 
-  disconnect() {
+  handleDisconnection() {
     natsService.client.on('close', () => {
-      console.log('[AS] NATS process closed');
+      console.log('[BS] NATS process closed');
       process.exit();
     });
 

@@ -4,10 +4,10 @@ import {
   queueGroupNames,
   INewActionEvent,
 } from '@tusks/api/util-interfaces';
-import { natsService } from '../../services/nats';
+
 import { User } from '../../models/User';
 import { AuthedActionPublisher } from '../publishers/authed-action';
-import { Listener } from '@tusks/api/shared-services';
+import { Listener, natsService } from '@tusks/api/shared-services';
 
 export class NewActionListener extends Listener<INewActionEvent> {
   readonly subject: Subjects.NewAction = Subjects.NewAction;

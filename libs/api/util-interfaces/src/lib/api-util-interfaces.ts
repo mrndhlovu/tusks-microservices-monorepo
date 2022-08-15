@@ -23,6 +23,11 @@ export interface IJwtAuthToken {
   boardInviteId?: string;
 }
 
+export interface IDBConnectOptions {
+  uri: string;
+  dbName: string;
+}
+
 export type IPermissionType =
   | 'BASIC'
   | 'BLOCKED'

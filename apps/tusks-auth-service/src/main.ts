@@ -1,15 +1,7 @@
-import { Database } from './services';
 import app from './app';
-import { natsService } from './services/nats';
-import {
-  BoardCreatedListener,
-  BoardDeletedListener,
-  AccountUpdatedListener,
-  NewActionListener,
-  BoardViewedListener,
-  WorkspaceCreatedListener,
-} from './events/listeners';
-import { BadRequestError } from '@tusks/api/shared-services';
+
+import { BadRequestError, Database } from '@tusks/api/shared-services';
+import NatsClient from './services/nats-client';
 
 class Server {
   private static validateEnvVariables() {
@@ -43,25 +35,13 @@ class Server {
   static async start() {
     Server.validateEnvVariables();
 
+    // await NatsClient.listen();
+
     const { NODE_ENV, PORT } = process.env;
 
     const port = 5000; //parseInt(PORT!, 10);
 
-    // await natsService.connect(
-    //   process.env.NATS_CLUSTER_ID!,
-    //   process.env.NATS_CLIENT_ID!,
-    //   process.env.NATS_URL!
-    // );
-    // natsService.disconnect();
-
-    // new BoardCreatedListener(natsService.client).listen();
-    // new BoardDeletedListener(natsService.client).listen();
-    // new AccountUpdatedListener(natsService.client).listen();
-    // new BoardViewedListener(natsService.client).listen();
-    // new NewActionListener(natsService.client).listen();
-    // new WorkspaceCreatedListener(natsService.client).listen();
-
-    await Database.connect();
+    await Database.connect({ dbName: 'auth', uri: process.env.MONGO_URI });
     app.listen(port, () => {
       const serverStatus = [
         {

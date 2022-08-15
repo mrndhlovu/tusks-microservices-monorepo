@@ -1,18 +1,60 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+import app from './app';
+import { SendEmailListener } from './events/listeners';
+import { BadRequestError, natsService } from '@tusks/api/shared-services';
 
-import * as express from 'express';
+class Server {
+  private loadEnvVariables() {
+    const {
+      NATS_CLIENT_ID,
+      NATS_CLUSTER_ID,
+      NATS_URL,
+      MONGO_URI,
+      PORT,
+      MAILGUN_SECRET_KEY,
+    } = process.env;
 
-const app = express();
+    if (
+      !NATS_CLIENT_ID ||
+      !NATS_CLUSTER_ID ||
+      !NATS_URL ||
+      !MONGO_URI ||
+      !PORT ||
+      !MAILGUN_SECRET_KEY
+    ) {
+      throw new BadRequestError('Some Env variables are missing!');
+    }
+  }
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to api-email-service!' });
-});
+  private async connectEventBus() {
+    const { NATS_CLUSTER_ID, NATS_CLIENT_ID, NATS_URL } = process.env;
+    await natsService.connect(NATS_CLUSTER_ID!, NATS_CLIENT_ID!, NATS_URL!);
+    natsService.handleDisconnection();
 
-const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
-});
-server.on('error', console.error);
+    new SendEmailListener(natsService.client).listen();
+  }
+
+  async start() {
+    this.loadEnvVariables();
+
+    const { NODE_ENV, PORT } = process.env;
+
+    const port = 5001; //parseInt(PORT!, 10);
+
+    // await this.connectEventBus();
+
+    app.listen(port, () => {
+      const serverStatus = [
+        {
+          '[ES] Server Status': 'Online',
+          Environment: NODE_ENV!,
+          Port: port,
+        },
+      ];
+      console.table(serverStatus);
+    });
+  }
+}
+
+const server = new Server();
+
+server.start();

@@ -4,6 +4,7 @@ import {
   NotAuthorisedError,
   NotFoundError,
   permissionManager,
+  natsService,
 } from '@tusks/api/shared-services';
 import {
   ACCOUNT_TYPE,
@@ -20,7 +21,6 @@ import {
   RESTORE_ACCOUNT_ENDPOINT,
   LOGIN_ENDPOINT,
 } from '../utils/constants';
-import { natsService } from '../services/nats';
 import { IUserDocument, User } from '../models/User';
 import {
   UserDeletedPublisher,
