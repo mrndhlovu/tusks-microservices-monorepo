@@ -12,9 +12,22 @@
     "module": "esnext",
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@tusks/api": ["libs/api/src/index.ts"],
+      "@tusks/api/shared-middleware": [
+        "libs/api/shared-middleware/src/index.ts"
+      ],
+      "@tusks/api/shared-services": ["libs/api/shared-services/src/index.ts"],
+      "@tusks/api/shared-utils": ["libs/api/shared-utils/src/index.ts"],
+      "@tusks/api/util-interfaces": ["libs/api/util-interfaces/src/index.ts"],
+      "@tusks/tusks/ui-shared": ["libs/tusks/ui-shared/src/index.ts"],
+      "@tusks/tusks/util-formatters": [
+        "libs/tusks/util-formatters/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
