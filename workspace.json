@@ -8,9 +8,12 @@
     "api-shared-services": "libs/api/shared-services",
     "api-shared-utils": "libs/api/shared-utils",
     "api-util-interfaces": "libs/api/util-interfaces",
+    "tusks-accounts-service": "apps/tusks-accounts-service",
     "tusks-auth-service": "apps/tusks-auth-service",
+    "tusks-board-service": "apps/tusks-board-service",
     "tusks-client": "apps/tusks-client",
     "tusks-client-e2e": "apps/tusks-client-e2e",
+    "tusks-payments-service": "apps/tusks-payments-service",
     "tusks-ui-shared": "libs/tusks/ui-shared",
     "tusks-util-formatters": "libs/tusks/util-formatters"
   }
