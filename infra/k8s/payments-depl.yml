@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments
+  template:
+    metadata:
+      labels:
+        app: payments
+    spec:
+      containers:
+        - name: payments
+          image: payments
+          # resources:
+          # limits:
+          #   memory: 512Mi
+          #   cpu: "0.2"
+          env:
+            - name: JWT_ACCESS_TOKEN_SIGNATURE
+              valueFrom:
+                secretKeyRef:
+                  name: env-config
+                  key: JWT_ACCESS_TOKEN_SIGNATURE
+
+            - name: JWT_REFRESH_TOKEN_SIGNATURE
+              valueFrom:
+                secretKeyRef:
+                  name: env-config
+                  key: JWT_REFRESH_TOKEN_SIGNATURE
+
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: env-config
+                  key: MONGO_URI
+
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env-config
+                  key: STRIPE_SECRET_KEY
+
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: env-config
+                  key: PORT
+
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+            - name: NATS_CLUSTER_ID
+              value: tuskui
+
+            - name: NATS_URL
+              value: 'http:/nats-srv:4222/'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-srv
+spec:
+  selector:
+    app: payments
+  ports:
+    - name: payments
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

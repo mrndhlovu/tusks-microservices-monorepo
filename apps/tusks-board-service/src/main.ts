@@ -1,6 +1,6 @@
-import { BadRequestError, Database } from '@tusks/api/shared-services';
-import { app } from './app';
-import NatsClient from './services/nats-client';
+import { BadRequestError, Database } from '@tusks/api/shared-services'
+import { app } from './app'
+import NatsClient from './services/nats-client'
 
 class Server {
   private static validateEnvVariables() {
@@ -22,7 +22,7 @@ class Server {
       S3_BUCKET_AWS,
       ALGOLIA_APPLICATION_ID,
       ALGOLIA_ADMIN_API_KEY_ID,
-    } = process.env;
+    } = process.env
 
     if (
       !PORT ||
@@ -43,18 +43,19 @@ class Server {
       !ALGOLIA_ADMIN_API_KEY_ID ||
       !ALGOLIA_APPLICATION_ID
     ) {
-      throw new BadRequestError('Some Env variables are missing!');
+      throw new BadRequestError('Some Env variables are missing!')
     }
   }
 
   static async start() {
-    Server.validateEnvVariables();
+    Server.validateEnvVariables()
 
-    NatsClient.listen();
-    const { NODE_ENV, PORT } = process.env;
-    const port = 5003; //parseInt(PORT!, 10);
+    NatsClient.listen()
 
-    await Database.connect({ uri: process.env.MONGO_URI, dbName: 'boards' });
+    const { NODE_ENV, PORT } = process.env
+    const port = 3000 //parseInt(PORT!, 10);
+
+    await Database.connect({ uri: process.env.MONGO_URI, dbName: 'boards' })
     app.listen(port, () => {
       const serverStatus = [
         {
@@ -62,10 +63,10 @@ class Server {
           Environment: NODE_ENV!,
           Port: port,
         },
-      ];
-      console.table(serverStatus);
-    });
+      ]
+      console.table(serverStatus)
+    })
   }
 }
 
-Server.start();
+Server.start()

@@ -1,18 +1,57 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+import app from './app'
+import { BadRequestError, Database } from '@tusks/api/shared-services'
+import NatsClient from './services/nats-client'
 
-import * as express from 'express';
+class Server {
+  private static validateEnvVariables() {
+    const {
+      PORT,
+      MONGO_URI,
+      NATS_URL,
+      NATS_CLIENT_ID,
+      NATS_CLUSTER_ID,
+      SPOTIFY_REDIRECT_URI,
+      SPOTIFY_SECRET,
+      SPOTIFY_ID,
+    } = process.env
 
-const app = express();
+    if (
+      !PORT ||
+      !MONGO_URI ||
+      !NATS_CLUSTER_ID ||
+      !NATS_CLIENT_ID ||
+      !NATS_URL ||
+      !SPOTIFY_ID ||
+      !SPOTIFY_REDIRECT_URI ||
+      !SPOTIFY_SECRET
+    ) {
+      throw new BadRequestError('Some Env variables are missing!')
+    }
+  }
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to tusks-accounts-service!' });
-});
+  async start() {
+    Server.validateEnvVariables()
 
-const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
-});
-server.on('error', console.error);
+    const { NODE_ENV, PORT = '3000' } = process.env
+
+    const port = parseInt(PORT!, 10)
+
+    await NatsClient.listen()
+
+    await Database.connect({ dbName: 'accounts', uri: process.env.MONGO_URI })
+    app.listen(port, () => {
+      const serverStatus = [
+        {
+          '[ACS] Server Status': 'Online',
+          Environment: NODE_ENV!,
+          Port: port,
+        },
+      ]
+      console.table(serverStatus)
+    })
+  }
+}
+
+const server = new Server()
+
+server.start()

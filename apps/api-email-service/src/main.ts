@@ -1,6 +1,6 @@
-import app from './app';
-import { SendEmailListener } from './events/listeners';
-import { BadRequestError, natsService } from '@tusks/api/shared-services';
+import app from './app'
+import { SendEmailListener } from './events/listeners'
+import { BadRequestError, natsService } from '@tusks/api/shared-services'
 
 class Server {
   private loadEnvVariables() {
@@ -11,7 +11,7 @@ class Server {
       MONGO_URI,
       PORT,
       MAILGUN_SECRET_KEY,
-    } = process.env;
+    } = process.env
 
     if (
       !NATS_CLIENT_ID ||
@@ -21,26 +21,26 @@ class Server {
       !PORT ||
       !MAILGUN_SECRET_KEY
     ) {
-      throw new BadRequestError('Some Env variables are missing!');
+      throw new BadRequestError('Some Env variables are missing!')
     }
   }
 
   private async connectEventBus() {
-    const { NATS_CLUSTER_ID, NATS_CLIENT_ID, NATS_URL } = process.env;
-    await natsService.connect(NATS_CLUSTER_ID!, NATS_CLIENT_ID!, NATS_URL!);
-    natsService.handleDisconnection();
+    const { NATS_CLUSTER_ID, NATS_CLIENT_ID, NATS_URL } = process.env
+    await natsService.connect(NATS_CLUSTER_ID!, NATS_CLIENT_ID!, NATS_URL!)
+    natsService.handleDisconnection()
 
-    new SendEmailListener(natsService.client).listen();
+    new SendEmailListener(natsService.client).listen()
   }
 
   async start() {
-    this.loadEnvVariables();
+    this.loadEnvVariables()
 
-    const { NODE_ENV, PORT } = process.env;
+    const { NODE_ENV, PORT } = process.env
 
-    const port = 5001; //parseInt(PORT!, 10);
+    const port = 3000 //parseInt(PORT!, 10);
 
-    // await this.connectEventBus();
+    await this.connectEventBus()
 
     app.listen(port, () => {
       const serverStatus = [
@@ -49,12 +49,12 @@ class Server {
           Environment: NODE_ENV!,
           Port: port,
         },
-      ];
-      console.table(serverStatus);
-    });
+      ]
+      console.table(serverStatus)
+    })
   }
 }
 
-const server = new Server();
+const server = new Server()
 
-server.start();
+server.start()

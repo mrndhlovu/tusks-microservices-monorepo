@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: email-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: email
+  template:
+    metadata:
+      labels:
+        app: email
+    spec:
+      containers:
+        - name: email
+          image: email
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: '500m'
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: env-config
+                  key: MONGO_URI
+
+            - name: MAILGUN_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env-config
+                  key: MAILGUN_SECRET_KEY
+
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: env-config
+                  key: PORT
+
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+            - name: NATS_CLUSTER_ID
+              value: tuskui
+
+            - name: NATS_URL
+              value: 'http:/nats-srv:4222/'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: email-srv
+spec:
+  selector:
+    app: email
+  ports:
+    - name: email
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

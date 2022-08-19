@@ -1,6 +1,6 @@
-import app from './app';
-import NatsClient from './services/nats-client';
-import { BadRequestError, Database } from '@tusks/api/shared-services';
+import app from './app'
+import NatsClient from './services/nats-client'
+import { BadRequestError, Database } from '@tusks/api/shared-services'
 
 class Server {
   private static validateEnvVariables() {
@@ -11,7 +11,7 @@ class Server {
       MONGO_URI,
       PORT,
       STRIPE_SECRET_KEY,
-    } = process.env;
+    } = process.env
 
     if (
       !NATS_CLIENT_ID ||
@@ -21,20 +21,20 @@ class Server {
       !PORT ||
       !STRIPE_SECRET_KEY
     ) {
-      throw new BadRequestError('Some Env variables are missing!');
+      throw new BadRequestError('Some Env variables are missing!')
     }
   }
 
   static async start() {
-    Server.validateEnvVariables();
+    Server.validateEnvVariables()
 
-    const { NODE_ENV, PORT } = process.env;
+    const { NODE_ENV, PORT } = process.env
 
-    const port = 5004; //parseInt(PORT!, 10);
+    const port = 3000 //parseInt(PORT!, 10);
 
-    // await NatsClient.listen();
+    await NatsClient.listen()
 
-    await Database.connect({ dbName: 'payments', uri: process.env.MONGO_URI! });
+    await Database.connect({ dbName: 'payments', uri: process.env.MONGO_URI! })
 
     app.listen(port, () => {
       const serverStatus = [
@@ -43,10 +43,10 @@ class Server {
           Environment: NODE_ENV!,
           Port: port,
         },
-      ];
-      console.table(serverStatus);
-    });
+      ]
+      console.table(serverStatus)
+    })
   }
 }
 
-Server.start();
+Server.start()

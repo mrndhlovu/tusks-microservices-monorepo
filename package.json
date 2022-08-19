@@ -5,7 +5,9 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "accounts": "nx run tusks-accounts-service:serve",
+    "auth": "nx run tusks-auth-service:serve"
   },
   "private": true,
   "dependencies": {
@@ -48,6 +50,7 @@
     "lodash": "^4.17.21",
     "mailgun-js": "^0.22.0",
     "mongoose": "^6.5.0",
+    "mongoose-paginate-v2": "^1.7.0",
     "multer": "^1.4.5-lts.1",
     "multer-s3": "^3.0.1",
     "next": "12.2.3",
@@ -70,6 +73,7 @@
     "react-stripe-elements": "^6.1.2",
     "regenerator-runtime": "0.13.7",
     "remark": "^12.0.0",
+    "spotify-web-api-node": "^5.0.2",
     "streamifier": "^0.1.1",
     "stripe": "^10.2.0",
     "styled-components": "5.3.5",
@@ -96,6 +100,7 @@
     "@types/express": "4.17.13",
     "@types/jest": "27.4.1",
     "@types/jsonwebtoken": "^8.5.4",
+    "@types/mongoose-paginate-v2": "^1.6.5",
     "@types/multer": "^1.4.7",
     "@types/multer-s3": "^3.0.0",
     "@types/node": "16.11.7",

@@ -1,11 +1,10 @@
-import { ACTION_KEYS } from "@tusksui/shared"
-import { formatDistance } from "date-fns"
-import { MouseEvent } from "react"
-import { ALLOWED_IMAGE_OPTIONS } from "../../../util/constants"
-
-import { IAction } from "../../board/canvas/card/Activities"
-import { NextLink } from "./NextLink"
-import CommentItem from "../../board/canvas/card/CommentItem"
+import { formatDistance } from 'date-fns'
+import { MouseEvent } from 'react'
+import { ALLOWED_IMAGE_OPTIONS } from '../../../util/constants'
+import { IAction } from '../../board/canvas/card/Activities'
+import { NextLink } from './NextLink'
+import CommentItem from '../../board/canvas/card/CommentItem'
+import { ACTION_KEYS } from '@tusks/api/util-interfaces'
 
 const FormattedAction = <T extends IAction>({
   action,
@@ -17,7 +16,7 @@ const FormattedAction = <T extends IAction>({
   const name =
     action.memberCreator?.fullName || `@${action.memberCreator.username}`
 
-  const getHref = (data: IAction["entities"], isBoardHref?: boolean) => {
+  const getHref = (data: IAction['entities'], isBoardHref?: boolean) => {
     if (isBoardHref) {
       return `/board/${data?.boardId}`
     }
@@ -36,11 +35,11 @@ const FormattedAction = <T extends IAction>({
       case ACTION_KEYS.CREATE_CARD:
         return (
           <span>
-            {" "}
-            added{" "}
+            {' '}
+            added{' '}
             <NextLink href={getHref(action?.entities)}>
               {action.entities?.card.name}
-            </NextLink>{" "}
+            </NextLink>{' '}
             card to {action?.entities?.list?.name} list.
           </span>
         )
@@ -82,7 +81,7 @@ const FormattedAction = <T extends IAction>({
           action?.entities?.attachment?.image
         const previewId = `${action?.entities?.attachment?.url}|${action?.entities?.attachment?.id}`
 
-        if (action?.entities?.attachment?.type === "link") {
+        if (action?.entities?.attachment?.type === 'link') {
           return (
             <CommentItem
               commentId={action.id}
@@ -95,21 +94,21 @@ const FormattedAction = <T extends IAction>({
 
         return (
           <span>
-            {" "}
-            attached{" "}
+            {' '}
+            attached{' '}
             {isImage && (
               <NextLink href="#" onClick={openPreviewModal} id={previewId}>
                 {action?.entities?.attachment?.name}
               </NextLink>
             )}
-            {!isImage && action?.entities?.attachment?.type !== "link" && (
+            {!isImage && action?.entities?.attachment?.type !== 'link' && (
               <a href={action?.entities?.attachment?.url} download>
                 {action?.entities?.attachment?.name}
               </a>
-            )}{" "}
+            )}{' '}
             {action?.entities?.card?.name && (
               <>
-                to{" "}
+                to{' '}
                 <NextLink onClick={openPreviewModal} href="#" id={previewId}>
                   {action?.entities?.card?.name}
                 </NextLink>
@@ -130,11 +129,11 @@ const FormattedAction = <T extends IAction>({
       case ACTION_KEYS.MOVE_CARD_DOWN:
         return (
           <span>
-            {" "}
-            moved{" "}
+            {' '}
+            moved{' '}
             <NextLink href={getHref(action?.entities)}>
               {action?.entities?.card?.name}
-            </NextLink>{" "}
+            </NextLink>{' '}
             down.
           </span>
         )
@@ -142,11 +141,11 @@ const FormattedAction = <T extends IAction>({
       case ACTION_KEYS.MOVE_CARD_UP:
         return (
           <span>
-            {" "}
-            moved{" "}
+            {' '}
+            moved{' '}
             <NextLink href={getHref(action?.entities)}>
               {action?.entities?.card?.name}
-            </NextLink>{" "}
+            </NextLink>{' '}
             up.
           </span>
         )
@@ -154,12 +153,12 @@ const FormattedAction = <T extends IAction>({
       case ACTION_KEYS.MOVE_CARD_TO_LIST:
         return (
           <span>
-            {" "}
-            moved{" "}
+            {' '}
+            moved{' '}
             <NextLink href={getHref(action?.entities)}>
               {action?.entities?.card?.name}
-            </NextLink>{" "}
-            from {action?.entities?.list?.name} to{" "}
+            </NextLink>{' '}
+            from {action?.entities?.list?.name} to{' '}
             {action?.entities?.targetList?.name}.
           </span>
         )
@@ -167,16 +166,16 @@ const FormattedAction = <T extends IAction>({
       case ACTION_KEYS.TRANSFER_CARD:
         return (
           <span>
-            {" "}
-            transferred{" "}
+            {' '}
+            transferred{' '}
             <NextLink href={getHref(action?.entities)}>
               {action?.entities?.card?.name}
-            </NextLink>{" "}
-            from {action?.entities?.list?.name} to{" "}
-            {action?.entities?.targetList?.name} on{" "}
+            </NextLink>{' '}
+            from {action?.entities?.list?.name} to{' '}
+            {action?.entities?.targetList?.name} on{' '}
             <NextLink href={getHref(action?.entities, true)}>
               {action?.entities?.targetBoard?.name}
-            </NextLink>{" "}
+            </NextLink>{' '}
             board .
           </span>
         )
@@ -184,15 +183,15 @@ const FormattedAction = <T extends IAction>({
       case ACTION_KEYS.TRANSFER_LIST:
         return (
           <span>
-            {" "}
-            transferred {action?.entities?.list?.name} from{" "}
+            {' '}
+            transferred {action?.entities?.list?.name} from{' '}
             <NextLink href={getHref(action?.entities, true)}>
               {action?.entities?.name}
-            </NextLink>{" "}
-            to{" "}
+            </NextLink>{' '}
+            to{' '}
             <NextLink href={getHref(action?.entities?.targetBoard, true)}>
               {action?.entities?.targetBoard?.name}
-            </NextLink>{" "}
+            </NextLink>{' '}
             board .
           </span>
         )
@@ -200,11 +199,11 @@ const FormattedAction = <T extends IAction>({
       case ACTION_KEYS.ADD_CHECKLIST:
         return (
           <span>
-            {" "}
-            added a checklist on{" "}
+            {' '}
+            added a checklist on{' '}
             <NextLink href={getHref(action?.entities)}>
               {action?.entities?.card?.name}
-            </NextLink>{" "}
+            </NextLink>{' '}
             card.
           </span>
         )
@@ -218,14 +217,14 @@ const FormattedAction = <T extends IAction>({
     <span className="description">
       <div>
         <strong>{name}</strong>
-        {(action.type === "comment" ||
-          action?.entities?.attachment?.type === "link") &&
+        {(action.type === 'comment' ||
+          action?.entities?.attachment?.type === 'link') &&
           action?.updatedAt && (
             <span className="date comment-timeline">
               {formatDistance(new Date(action?.updatedAt), new Date(), {
                 addSuffix: true,
               })}
-              {action?.entities?.comment?.edited && " (edited)"}
+              {action?.entities?.comment?.edited && ' (edited)'}
             </span>
           )}
       </div>
