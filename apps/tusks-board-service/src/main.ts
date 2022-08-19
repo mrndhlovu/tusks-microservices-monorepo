@@ -1,6 +1,6 @@
 import { BadRequestError, Database } from '@tusks/api/shared-services';
 import { app } from './app';
-import NatsClient from './nats-client';
+import NatsClient from './services/nats-client';
 
 class Server {
   private static validateEnvVariables() {
@@ -52,7 +52,7 @@ class Server {
 
     NatsClient.listen();
     const { NODE_ENV, PORT } = process.env;
-    const port = parseInt(PORT!, 10);
+    const port = 5003; //parseInt(PORT!, 10);
 
     await Database.connect({ uri: process.env.MONGO_URI, dbName: 'boards' });
     app.listen(port, () => {

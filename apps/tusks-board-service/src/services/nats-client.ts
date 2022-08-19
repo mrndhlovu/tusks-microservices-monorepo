@@ -2,8 +2,8 @@ import { natsService } from '@tusks/api/shared-services';
 import {
   CustomerCreatedListener,
   UserDeletedListener,
-} from './events/listeners';
-import { AddBoardMemberListener } from './events/listeners/add-board-member';
+} from '../events/listeners';
+import { AddBoardMemberListener } from '../events/listeners/add-board-member';
 
 class NatsClient {
   static async listen() {
