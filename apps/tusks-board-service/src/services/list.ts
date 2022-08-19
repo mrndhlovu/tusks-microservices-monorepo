@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongodb';
 import { boardService } from '.';
 import { IChangePosition } from '../types';
 import Board, { IBoard } from '../models/Board';
@@ -14,12 +13,13 @@ import {
   NewActionPublisher,
 } from '@tusks/api/util-interfaces';
 import { natsService, NotFoundError } from '@tusks/api/shared-services';
+import { Types } from 'mongoose';
 
 export interface IUpdateListMemberOptions {
   currentPermFlag: number;
   newRole: IPermissionType;
   isNew: boolean;
-  userId: ObjectId;
+  userId: Types.ObjectId;
 }
 
 export interface IListChangePosition {
@@ -34,7 +34,7 @@ export interface IListChangePosition {
 }
 
 class ListServices {
-  findListOnlyById = async (listId: ObjectId | string) => {
+  findListOnlyById = async (listId: Types.ObjectId | string) => {
     const list = await List.findOne({ _id: listId });
     return list;
   };
@@ -49,7 +49,7 @@ class ListServices {
     return lists;
   };
 
-  findListById = async (listId: ObjectId | string) => {
+  findListById = async (listId: Types.ObjectId | string) => {
     const list = await List.findOne({ _id: listId });
     return list;
   };
@@ -88,12 +88,12 @@ class ListServices {
       : targetPosition;
 
     if (options.isSwitchingBoard) {
-      const cardIds: ObjectId[] = [];
+      const cardIds: Types.ObjectId[] = [];
 
       await Card.find({ listId: options.sourceListId! }, (err, records) => {
         records?.map(async (record) => {
           cardIds.push(record._id);
-          record.boardId = new ObjectId(options.targetBoardId!);
+          record.boardId = idToObjectId(options.targetBoardId!);
           await record.save();
         });
       });
@@ -109,7 +109,10 @@ class ListServices {
         { _id: options.targetBoardId },
         {
           $push: {
-            lists: { $each: [options.sourceListId], $position: newPosition },
+            lists: {
+              $each: [idToObjectId(options.sourceListId!)],
+              $position: newPosition,
+            },
             cards: { $each: cardIds },
           },
         }

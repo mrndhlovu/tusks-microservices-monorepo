@@ -1,5 +1,4 @@
 import { Message } from 'node-nats-streaming';
-import Board from '../../models/Board';
 import { boardService } from '../../services';
 import Workspace from '../../models/Workspace';
 import { Listener } from '@tusks/api/shared-services';
@@ -9,6 +8,7 @@ import {
   ROLES,
   Subjects,
 } from '@tusks/api/util-interfaces';
+import { idToObjectId } from '../../helpers';
 
 export class AddBoardMemberListener extends Listener<IAddBoardMemberEvent> {
   readonly subject: Subjects.AddBoardMember = Subjects.AddBoardMember;
@@ -30,7 +30,7 @@ export class AddBoardMemberListener extends Listener<IAddBoardMemberEvent> {
       });
 
       if (workspace) {
-        workspace.boards.push(data.boardInviteId);
+        workspace.boards.push(idToObjectId(data.boardInviteId));
         await workspace.save();
       }
 

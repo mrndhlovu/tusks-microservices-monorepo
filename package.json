@@ -24,7 +24,7 @@
     "@types/spotify-web-api-node": "^5.0.3",
     "@types/styled-components": "^5.1.11",
     "algoliasearch": "^4.14.2",
-    "aws-sdk": "^2.1195.0",
+    "aws-sdk": "^2.995.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.30.1",

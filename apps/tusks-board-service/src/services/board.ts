@@ -1,7 +1,7 @@
 import { CallbackError, ObjectId } from 'mongoose';
 import { Request } from 'express';
 import { v2 } from 'cloudinary';
-import AWS from 'aws-sdk';
+import * as AWS from 'aws-sdk';
 import axios from 'axios';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
@@ -11,6 +11,7 @@ import { IRemoveRecordIdOptions, IUploadFile } from '../types';
 import Board, { BoardDocument } from '../models/Board';
 import {
   BadRequestError,
+  natsService,
   NotFoundError,
   permissionManager,
 } from '@tusks/api/shared-services';
@@ -117,7 +118,7 @@ class BoardServices {
       cb(new BadRequestError('File type cannot be uploaded!'));
     },
     storage: multerS3({
-      s3,
+      s3: s3 as any,
       bucket: `${process.env.S3_BUCKET_AWS!}/attachments`,
       acl: 'public-read',
       metadata: function (_req, file, cb) {

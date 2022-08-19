@@ -86,7 +86,7 @@ class BoardController {
   getBoardTemplates = async (req: Request, res: Response) => {
     const result = BOARD_TEMPLATES.map((item) => ({
       ...item,
-      id: new mongoose.mongo.ObjectId(),
+      id: new mongoose.Types.ObjectId(),
       lists: [{ name: 'Todo' }, { name: 'Doing' }, { name: 'Done' }],
     }));
 

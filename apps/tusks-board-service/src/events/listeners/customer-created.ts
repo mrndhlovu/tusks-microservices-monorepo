@@ -2,7 +2,7 @@ import { Message } from 'node-nats-streaming';
 
 import Workspace from '../../models/Workspace';
 import { WorkspaceCreatedPublisher } from '../publishers/workspace-created';
-import { algoliaClient, natsService } from '../../services';
+import { algoliaClient } from '../../services';
 import { SendEmailPublisher } from '../publishers/send-email';
 import { DEFAULT_EMAIL } from '../../utils/constants';
 import {
@@ -10,7 +10,7 @@ import {
   queueGroupNames,
   Subjects,
 } from '@tusks/api/util-interfaces';
-import { Listener } from '@tusks/api/shared-services';
+import { Listener, natsService } from '@tusks/api/shared-services';
 
 export class CustomerCreatedListener extends Listener<ICustomerCreated> {
   readonly subject: Subjects.CustomerCreated = Subjects.CustomerCreated;

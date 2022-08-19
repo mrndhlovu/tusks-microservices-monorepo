@@ -53,7 +53,7 @@ const BoardSchema = new Schema<BoardDocument>(
       type: String,
     },
     lastViewed: {
-      type: Date,
+      type: Number,
     },
     activeBg: {
       type: String,
@@ -115,7 +115,7 @@ export interface IBoard extends Document {
   activities: string[];
   members: string[];
   description: string;
-  lastViewed: Date;
+  lastViewed: number;
   activeBg: ACTIVE_BOARD_BG;
 }
 
