@@ -1,41 +1,41 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { GetServerSidePropsContext } from 'next';
-import { withAuthSsp } from '../../lib/hocs';
-import API from '../../api';
-import { ROUTES } from '../../util/constants';
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { GetServerSidePropsContext } from 'next'
+import { withAuthSsp } from '../../lib/hocs'
+import API from '../../api'
+import { ROUTES } from '../../util/constants'
 
 interface IProps {
   data: {
-    boardInviteId: string;
-  };
+    boardInviteId: string
+  }
 }
 
 const index = ({ data }: IProps) => {
-  const [isSSR, setIsSSR] = useState<boolean>(true);
-  const router = useRouter();
+  const [isSSR, setIsSSR] = useState<boolean>(true)
+  const router = useRouter()
 
   useEffect(() => {
-    setIsSSR(false);
-  }, []);
+    setIsSSR(false)
+  }, [])
 
   useEffect(() => {
-    router.replace(router.pathname, undefined, { shallow: true });
-  }, []);
+    router.replace(router.pathname, undefined, { shallow: true })
+  }, [])
 
-  return null;
-};
+  return null
+}
 
 export const getServerSideProps = withAuthSsp(
   async (context: GetServerSidePropsContext, currentUser) => {
-    const ssRequest = new API(context?.req?.headers);
-    const { token, boardInviteId } = context?.query;
+    const ssRequest = new API(context?.req?.headers)
+    const { token, boardInviteId } = context?.query
 
-    if (!boardInviteId) return null;
+    if (!boardInviteId) return null
 
     const response = await ssRequest
       .acceptBoardInvite(token! as string, boardInviteId! as string)
-      .catch(err => err);
+      .catch(err => err)
 
     if (response?.status === 200 && currentUser) {
       return {
@@ -43,7 +43,7 @@ export const getServerSideProps = withAuthSsp(
           destination: `/board/${boardInviteId}`,
           permanent: false,
         },
-      };
+      }
     }
 
     if (response?.status === 200 && !currentUser) {
@@ -52,7 +52,7 @@ export const getServerSideProps = withAuthSsp(
           destination: `/${ROUTES.login}`,
           permanent: false,
         },
-      };
+      }
     }
 
     return {
@@ -60,11 +60,11 @@ export const getServerSideProps = withAuthSsp(
         destination: `/${ROUTES.signup}?notify=board-invite`,
         permanent: false,
       },
-    };
+    }
   },
   {
     protected: false,
-  },
-);
+  }
+)
 
-export default index;
+export default index

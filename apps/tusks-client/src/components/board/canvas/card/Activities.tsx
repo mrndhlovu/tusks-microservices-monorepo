@@ -1,37 +1,37 @@
-import { MouseEvent } from 'react';
-import { formatDistance } from 'date-fns';
+import { MouseEvent } from 'react'
+import { formatDistance } from 'date-fns'
 
-import { apiClient } from '../../../../api';
-import { FormattedAction } from '../../../shared';
-import { useBoard, useCardContext } from '../../../../lib/providers';
-import CommentModule from './CommentModule';
-import StyleActivities from './StyleActivities';
-import UserAvatar from '../../../shared/lib/UserAvatar';
+import { apiClient } from '../../../../api'
+import { FormattedAction } from '../../../shared'
+import { useBoard, useCardContext } from '../../../../lib/providers'
+import CommentModule from './CommentModule'
+import StyleActivities from './StyleActivities'
+import UserAvatar from '../../../shared/lib/UserAvatar'
 
 export interface IAction {
-  entities: { boardId: string; name?: string; [key: string]: any };
-  type: string;
+  entities: { boardId: string; name?: string; [key: string]: any }
+  type: string
   memberCreator: {
-    username: string;
-    id: string;
-    fullName?: string;
-  };
-  translationKey: string;
-  initials: string;
-  createdAt: string;
-  updatedAt: string;
-  id: string;
+    username: string
+    id: string
+    fullName?: string
+  }
+  translationKey: string
+  initials: string
+  createdAt: string
+  updatedAt: string
+  id: string
 }
 
 const Activities = ({
   showActivities,
   showCommentOption = true,
 }: {
-  showActivities: boolean;
-  showCommentOption?: boolean;
+  showActivities: boolean
+  showCommentOption?: boolean
 }) => {
-  const { togglePreviewModal } = useCardContext();
-  const { activities, pagination, loadMoreActions } = useBoard();
+  const { togglePreviewModal } = useCardContext()
+  const { activities, pagination, loadMoreActions } = useBoard()
 
   return (
     <>
@@ -68,7 +68,7 @@ const Activities = ({
         </StyleActivities>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Activities;
+export default Activities

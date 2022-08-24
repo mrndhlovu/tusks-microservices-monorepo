@@ -1,7 +1,7 @@
 interface IWorkspaceLink {
-  key: string;
-  title: string;
-  link: string;
+  key: string
+  title: string
+  link: string
 }
 
 export const ROUTES = {
@@ -17,14 +17,14 @@ export const ROUTES = {
   templates: 'templates',
   notification: 'notification',
   forgotPassword: 'auth/forgot-password',
-};
+}
 
-export const APP_NAME = 'Tusks';
+export const APP_NAME = 'Tusks'
 
 export const HOME_SIDEBAR_PRIMARY = [
   { key: 'boards', title: 'Home', link: '/' },
   { key: 'templates', title: 'Templates', link: '/templates' },
-];
+]
 
 export const NEW_BOARD_BG_OPTIONS = [
   {
@@ -51,7 +51,7 @@ export const NEW_BOARD_BG_OPTIONS = [
   { key: 5, color: 'rgb(210, 144, 52)' },
   { key: 6, color: 'rgb(81, 152, 57)' },
   { key: 7, color: 'rgb(176, 70, 50)' },
-];
+]
 
 export const PROFILE_TAB_OPTIONS = [
   { key: 'profile', title: 'Profile and visibility', id: 0 },
@@ -59,14 +59,14 @@ export const PROFILE_TAB_OPTIONS = [
   { key: 'cards', title: 'Cards', id: 2 },
   { key: 'settings', title: 'Settings', id: 3 },
   { key: 'billing', title: 'Upgrade Plans', id: 4 },
-];
+]
 
 export const WORKSPACE_TAB_OPTIONS = [
   { key: 'boards', title: 'Boards', id: 0 },
   { key: 'members', title: 'Members', id: 1 },
   { key: 'settings', title: 'Settings', id: 2 },
   { key: 'edit', title: 'Edit Workspace details', id: 3, disableButton: true },
-];
+]
 
 export const WORKSPACE_VISIBILITY_OPTIONS = [
   {
@@ -81,26 +81,26 @@ export const WORKSPACE_VISIBILITY_OPTIONS = [
     description:
       "This Workspace is private. It's not indexed or visible to those outside the Workspace.",
   },
-];
+]
 
 export const PROFILE_SETTINGS_OPTIONS = [
   { key: 'two-step-auth', title: 'Two-step verification' },
   { key: 'power-up', title: 'Power ups' },
   { key: 'delete-account', title: 'Delete account' },
-];
+]
 
 export const MFA_TAB_OPTIONS = [
   { key: 'verify', title: 'Verify Password', id: 0 },
   { key: 'install', title: 'Install', id: 1 },
   { key: 'connect', title: 'Connect phone', id: 2 },
   { key: 'setup', title: 'Setup recovery', id: 3 },
-];
+]
 
 export const AUTHENTICATOR_OPTIONS = [
   { key: 'google', title: 'Google Authenticator' },
   { key: 'authy', title: 'Authy' },
   { key: 'duo', title: 'Duo Mobile' },
-];
+]
 
 export enum DRAG_TYPES {
   CARD = 'CARD',
@@ -122,26 +122,26 @@ export const LABEL_DEFAULT_OPTIONS = [
   { color: '#344563', name: '' },
 
   { color: '#838c91', name: '' },
-];
+]
 
 export const COLORS_IMAGE =
-  'https://res.cloudinary.com/drxavrtbi/image/upload/c_fit,w_1000/v1630793219/trello-clone/robert-katzki-jbtfM0XBeRc-unsplash_cfgosx.jpg';
+  'https://res.cloudinary.com/drxavrtbi/image/upload/c_fit,w_1000/v1630793219/trello-clone/robert-katzki-jbtfM0XBeRc-unsplash_cfgosx.jpg'
 
 export const PHOTOS_IMAGE =
-  'https://res.cloudinary.com/drxavrtbi/image/upload/c_scale,w_1000/v1630793751/trello-clone/pexels-pineapple-supply-co-191429_xvc8hc.jpg';
+  'https://res.cloudinary.com/drxavrtbi/image/upload/c_scale,w_1000/v1630793751/trello-clone/pexels-pineapple-supply-co-191429_xvc8hc.jpg'
 
 export const SPOTIFY_SCOPES =
-  'user-read-email playlist-modify-private playlist-read-private user-read-playback-state';
+  'user-read-email playlist-modify-private playlist-read-private user-read-playback-state'
 
 export const SPOTIFY_LOGO =
-  'https://res.cloudinary.com/drxavrtbi/image/upload/c_scale,w_40/v1631265632/trello-clone/assets/Spotify_Icon_CMYK_Green_gwzjmc.png';
+  'https://res.cloudinary.com/drxavrtbi/image/upload/c_scale,w_40/v1631265632/trello-clone/assets/Spotify_Icon_CMYK_Green_gwzjmc.png'
 
 export const SPOTIFY_REVOKE_ACCESS_ENDPOINT =
-  'https://www.spotify.com/ie/account/apps/';
+  'https://www.spotify.com/ie/account/apps/'
 
 export const SPOTIFY_ACCESS_SCOPES = [
   'user-read-playback-state, user-read-currently-playing, user-modify-playback-state',
-];
+]
 
 export const LIST_ACTIONS = {
   menu: {
@@ -158,9 +158,9 @@ export const LIST_ACTIONS = {
     key: 'archive',
     title: 'Archive',
   },
-};
+}
 
-export const ALLOWED_IMAGE_OPTIONS = ['png', 'jpeg', 'jpg', 'gif'];
+export const ALLOWED_IMAGE_OPTIONS = ['png', 'jpeg', 'jpg', 'gif']
 
 export const DUE_DATE_REMINDERS = [
   { key: 0, label: 'At time of due date' },
@@ -171,7 +171,7 @@ export const DUE_DATE_REMINDERS = [
   { key: 120, label: '2 Hours before' },
   { key: 1440, label: '1 Day before' },
   { key: 2880, label: '2 Days before' },
-];
+]
 
 export const WORKSPACE_TYPES = [
   { key: 'engineering', name: 'Engineering-IT' },
@@ -182,7 +182,7 @@ export const WORKSPACE_TYPES = [
   { key: 'business', name: 'Small Business' },
   { key: 'hr', name: 'Human Resources' },
   { key: 'default', name: 'Other' },
-];
+]
 
 export const TEMPLATE_CATEGORIES = [
   { key: 'business', description: 'Business' },
@@ -199,7 +199,7 @@ export const TEMPLATE_CATEGORIES = [
   { key: 'sales', description: 'Sales' },
   { key: 'support', description: 'Support' },
   { key: 'team-management', description: 'Team Management' },
-];
+]
 
 export const CATEGORY_OPTIONS = [
   'business',
@@ -207,7 +207,7 @@ export const CATEGORY_OPTIONS = [
   'education',
   'engineering',
   'marketing',
-];
+]
 
 export const TOP_TEMPLATE_OPTIONS = [
   'Business Plan',
@@ -219,4 +219,32 @@ export const TOP_TEMPLATE_OPTIONS = [
   'Job Hunt',
   'Find Your Passion in Life',
   'Daily Task Management',
-];
+]
+
+export enum ACTION_KEYS {
+  CREATE_BOARD = 'created:board',
+  DELETED_BOARD = 'deleted:board',
+  ARCHIVED_BOARD = 'archived:board',
+
+  CREATE_CARD = 'created:card',
+  TRANSFER_CARD = 'transferred:card',
+  COMMENT_ON_CARD = 'commented:on:card',
+  ADD_CHECKLIST = 'added:checklist:to:card',
+  MOVE_CARD_TO_LIST = 'moved:card:from:list:to:list',
+  MOVE_CARD_UP = 'moved:card:up',
+  MOVE_CARD_DOWN = 'moved:card:down',
+  DELETED_CARD = 'deleted:card',
+  ARCHIVED_CARD = 'archived:card',
+  CONVERT_TASK_TO_CARD = 'converted:task:to:card',
+  CHANGED_CARD_COVER = 'added:card:cover',
+  REMOVED_CARD_COVER = 'removed:card:cover',
+  ADD_CARD_ATTACHMENT = 'added:card:attachment',
+  REMOVE_CARD_ATTACHMENT = 'removed:card:attachment',
+
+  CREATE_LIST = 'add:list:to:board',
+  TRANSFER_LIST = 'transferred:list',
+  DELETED_LIST = 'deleted:list',
+  ARCHIVED_LIST = 'archived:list',
+  MOVE_LIST_LEFT = 'move:list:left',
+  MOVE_LIST_RIGHT = 'move:list:right',
+}

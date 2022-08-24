@@ -15,6 +15,7 @@
     "tusks-client-e2e": "apps/tusks-client-e2e",
     "tusks-payments-service": "apps/tusks-payments-service",
     "tusks-ui-shared": "libs/tusks/ui-shared",
+    "tusks-ui-shared-e2e": "apps/tusks-ui-shared-e2e",
     "tusks-util-formatters": "libs/tusks/util-formatters"
   }
 }

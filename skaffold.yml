@@ -10,56 +10,55 @@ build:
     push: false
   artifacts:
     - image: accounts
-      context: apps/tusks-accounts-service
       docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
-
-    - image: client
-      context: apps/tusks-client
-      docker:
-        dockerfile: Dockerfile
+        dockerfile: ./docker/Dockerfile.accounts
+      # custom:
+      #   buildCommand: 'npm run accounts'
+      #   dependencies:
+      #     dockerfile:
+      #       path: ./Dockerfile
       sync:
         infer:
-          - 'src/**/*.tsx'
-          - 'src/**/*.ts'
-          - 'next.config.js'
-
-    - image: boards
-      context: apps/tusks-board-service
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
+          - 'apps/tusks-accounts-service/src/**/*.ts'
 
     - image: auth
-      context: apps/tusks-auth-service
+      # custom:
+      #   buildCommand: 'npm run auth'
+      #   dependencies:
+      #     dockerfile:
+      #       path: ./Dockerfile
       docker:
-        dockerfile: Dockerfile
+        dockerfile: ./docker/Dockerfile.auth
       sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
+        infer:
+          - 'apps/tusks-auth-service/src/**/*.ts'
 
-    - image: payments
-      context: apps/tusks-payments-service
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
+    # - image: client
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     infer:
+    #       - 'apps/tusks-client/src/**/*.tsx'
+    #       - 'apps/tusks-client/src/**/*.ts'
+    #       - 'apps/tusks-client/next.config.js'
 
-    - image: email
-      context: apps/email-service
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
+    # - image: boards
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     infer:
+    #       - 'apps/tusks-board-service/src/**/*.ts'
+
+    # - image: payments
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     infer:
+    #       - 'apps/tusks-payments-service/src/**/*.ts'
+
+    # - image: email
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     infer:
+    #       - 'apps/api-email-service/src/**/*.ts'

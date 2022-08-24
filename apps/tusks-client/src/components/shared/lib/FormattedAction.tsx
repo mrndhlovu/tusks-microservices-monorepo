@@ -1,10 +1,10 @@
 import { formatDistance } from 'date-fns'
 import { MouseEvent } from 'react'
-import { ALLOWED_IMAGE_OPTIONS } from '../../../util/constants'
+import { ACTION_KEYS, ALLOWED_IMAGE_OPTIONS } from '../../../util/constants'
 import { IAction } from '../../board/canvas/card/Activities'
 import { NextLink } from './NextLink'
+
 import CommentItem from '../../board/canvas/card/CommentItem'
-import { ACTION_KEYS } from '@tusks/api/util-interfaces'
 
 const FormattedAction = <T extends IAction>({
   action,
