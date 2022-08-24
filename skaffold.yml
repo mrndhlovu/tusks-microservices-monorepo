@@ -12,53 +12,43 @@ build:
     - image: accounts
       docker:
         dockerfile: ./docker/Dockerfile.accounts
-      # custom:
-      #   buildCommand: 'npm run accounts'
-      #   dependencies:
-      #     dockerfile:
-      #       path: ./Dockerfile
       sync:
         infer:
           - 'apps/tusks-accounts-service/src/**/*.ts'
 
     - image: auth
-      # custom:
-      #   buildCommand: 'npm run auth'
-      #   dependencies:
-      #     dockerfile:
-      #       path: ./Dockerfile
       docker:
         dockerfile: ./docker/Dockerfile.auth
       sync:
         infer:
           - 'apps/tusks-auth-service/src/**/*.ts'
 
-    # - image: client
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     infer:
-    #       - 'apps/tusks-client/src/**/*.tsx'
-    #       - 'apps/tusks-client/src/**/*.ts'
-    #       - 'apps/tusks-client/next.config.js'
+    - image: client
+      docker:
+        dockerfile: ./docker/Dockerfile.client
+      sync:
+        infer:
+          - 'apps/tusks-client/src/**/*.tsx'
+          - 'apps/tusks-client/src/**/*.ts'
+          - 'apps/tusks-client/next.config.js'
 
-    # - image: boards
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     infer:
-    #       - 'apps/tusks-board-service/src/**/*.ts'
+    - image: boards
+      docker:
+        dockerfile: ./docker/Dockerfile.boards
+      sync:
+        infer:
+          - 'apps/tusks-board-service/src/**/*.ts'
 
-    # - image: payments
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     infer:
-    #       - 'apps/tusks-payments-service/src/**/*.ts'
+    - image: payments
+      docker:
+        dockerfile: ./docker/Dockerfile.payments
+      sync:
+        infer:
+          - 'apps/tusks-payments-service/src/**/*.ts'
 
-    # - image: email
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     infer:
-    #       - 'apps/api-email-service/src/**/*.ts'
+    - image: email
+      docker:
+        dockerfile: ./docker/Dockerfile.email
+      sync:
+        infer:
+          - 'apps/api-email-service/src/**/*.ts'

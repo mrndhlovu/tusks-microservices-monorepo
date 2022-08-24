@@ -6,4 +6,5 @@ COPY . .
 
 RUN npm install
 
-CMD ["npm", "run", "auth"]
+CMD ["npm", "run", "boards"]
+
